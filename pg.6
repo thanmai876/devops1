@@ -1,0 +1,143 @@
+
+
+1️⃣ Create Maven Project
+
+In Eclipse:
+
+File → New → Other...
+
+Search for Maven Project → Click Next
+
+Choose Create a simple project → Next
+
+archetype-quickstart
+
+Group Id: com.samarth.jsonreader
+
+Artifact Id: jsonproject
+
+Name: jsonproject
+
+Finish
+
+
+✅ Eclipse creates:
+
+jsonproject/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   └── test/
+│       └── java/
+├── pom.xml
+
+
+---
+
+2️⃣ Add a JSON file
+
+Right-click the project → New → Folder → Name it JSON
+
+Inside the JSON folder, create a file like data.json
+
+
+Example data.json:
+
+{
+  "firstname": "Samarth",
+  "lastname": "Hegde"
+}
+
+
+
+---
+
+3️⃣ Add JSON dependency in pom.xml
+
+1. Go to https://mvnrepository.com
+
+
+2. Search for json-simple
+
+
+3. Choose a version (like 1.1.1)
+
+
+
+Add this to pom.xml inside <dependencies>:
+
+
+<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+<dependency>
+    <groupId>com.googlecode.json-simple</groupId>
+    <artifactId>json-simple</artifactId>
+    <version>1.1.1</version>
+</dependency>
+
+Then right-click your project → Maven → Update Project
+
+
+---
+
+4️⃣ Create Java class to read JSON
+
+In src/test/java, create a class:
+Right-click → New → Class → Name: JsonReader
+
+Paste the following code:
+
+package maven.lab6;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class demo {
+    public static void main(String[] args) throws IOException, ParseException {
+        JSONParser jsonparser = new JSONParser();
+        FileReader reader = new FileReader(".\\JSON\\data.json");  
+        Object obj = jsonparser.parse(reader);
+        JSONObject empjsonobj = (JSONObject) obj;
+
+        String fname = (String) empjsonobj.get("firstname");
+        String lname = (String) empjsonobj.get("lastname");
+
+        System.out.println("First name: " + fname);
+        System.out.println("Last name: " + lname);
+    }
+}
+
+
+
+---
+
+5️⃣ Run and Test
+
+Right-click on JsonReader.java → Run As → Java Application
+✅ You should see output:
+
+Name: Samarth
+Age: 22
+Branch: ISE
+
+
+---
+
+🎯 Final Output
+
+You now have a Maven project that:
+
+Uses a dependency (from Maven Central)
+
+Reads from a .json file
+
+Can be pushed to GitHub and used in Jenkins for CI/CD
+
+
+
+---
+
+Do you want me to explain how to integrate this with Jenkins or Docker in your next DevOps step?
